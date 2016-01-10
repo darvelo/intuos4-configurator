@@ -1,0 +1,3 @@
+[submodule "i4oled"]
+	path = i4oled
+	url = https://github.com/PrzemoF/i4oled
