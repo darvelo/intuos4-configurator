@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+
+'''
+Configuration tool for the Wacom Intuos4 Tablet
+
+License: GPLv3
+
+Requirements: xsetwacom
+              i4oled (https://github.com/PrzemoF/i4oled)
+
+(c) Christoph Karg (christoph@kargulus.de)
+    David Arvelo   (david@davidarvelo.com)
+'''
+import os
+import sys
+import argparse
+from classes import ProfileStorage, Tablet
+
+CONFIG_FILE = os.path.join(
+    os.path.dirname(__file__),
+    'settings.xml'
+)
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--sysfs-path', action='store', dest='sysfs_path', required=True,
+            help='Path to the wacom_led dir in /sys. Example: /sys/bus/hid/drivers/wacom/XXXX:XXXX:XXXX.XXXX/wacom_led')
+
+    parser.add_argument('-c', '--config', action='store', dest='config_file', default=CONFIG_FILE,
+                        help='Config file to use (defaults to {})'.format(CONFIG_FILE))
+
+    parser.add_argument('-p', '--profile', action='store', dest='profile',
+                        help='Profile to set on the tablet')
+
+    parser.add_argument('-l', '--list', action='store_true', dest='listprofiles', default=False,
+                        help='List the names of the available profiles')
+
+    parser.add_argument('-v', '--verbose', action='store_true', dest='verbose', default=False,
+                        help='Verbose output')
+
+    parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.002')
+    return parser.parse_args()
+
+
+def main(args):
+    if args.sysfs_path.find('/sys') != 0 or os.path.basename(args.sysfs_path) != 'wacom_led':
+        raise Exception('sysfs path for wacom_led was invalid: {}'.format(args.sysfs_path))
+    if not os.path.isdir(args.sysfs_path):
+        raise Exception('sysfs path for wacom_led was not a directory: {}'.format(args.sysfs_path))
+
+    tablet = Tablet(args.sysfs_path)
+
+    if not tablet.initOk():
+        print('Initialization failure.')
+        sys.exit(1)
+
+    if not os.path.isfile(os.path.expanduser(args.config_file)):
+        print('Invalid config file: ', args.config_file)
+        sys.exit(1)
+
+    profile_storage = ProfileStorage()
+    profile_storage.readFile(os.path.expanduser(args.config_file))
+
+    profile = args.profile or profile_storage.getDefaultProfile()
+
+    if not profile:
+        print('No profile given.')
+        sys.exit(1)
+
+    if args.listprofiles:
+        print('List of available profiles:')
+        for p in profile_storage.getListOfProfiles():
+            print('"{}"'.format(p))
+        sys.exit(0)
+
+    print('Using profile: {}.'.format(profile))
+
+    tablet.setVerboseMode(args.verbose);
+    tablet.setDevice(profile_storage.getDevice())
+    tablet.setProfile(profile_storage.getProfile(profile))
+
+    print('Finished.')
+
+if __name__ == '__main__':
+    args = parse_args()
+    main(args)

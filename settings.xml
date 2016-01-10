@@ -1,0 +1,115 @@
+<intuos4settings device="Wacom Intuos4 6x9 Pad pad">
+	<profiles default="GIMP">
+		<profile name="Demo" lefthanded="False">
+			<button number="0">
+				<oled type="image" name="arrow-up.png"></oled>
+				<keystroke key="1"></keystroke>
+			</button>
+			<button number="1">
+				<oled type="image" name="back.png"></oled>
+				<keystroke key="2"></keystroke>
+			</button>
+			<button number="2">
+				<oled type="image" name="debian.png"></oled>
+				<keystroke key="3"></keystroke>
+			</button>
+			<button number="3">
+				<oled type="image" name="down_arrow.png"></oled>
+				<keystroke key="8"></keystroke>
+			</button>
+			<button number="4">
+				<oled type="image" name="fast_forward.png"></oled>
+				<keystroke key="5"></keystroke>
+			</button>
+			<button number="5">
+				<oled type="image" name="fast_backward.png"></oled>
+				<keystroke key="6"></keystroke>
+			</button>
+			<button number="6">
+				<oled type="image" name="forward.png"></oled>
+				<keystroke key="7"></keystroke>
+			</button>
+			<button number="7">
+				<oled type="image" name="help.png"></oled>
+				<keystroke key="8"></keystroke>
+			</button>
+		</profile>
+		<profile name="Image Demo" lefthanded="False">
+			<button number="0">
+				<oled type="image" name="pause.png"></oled>
+				<keystroke key="ctrl x"></keystroke>
+			</button>
+			<button number="1">
+				<oled type="image" name="play.png"></oled>
+				<keystroke key="ctrl c"></keystroke>
+			</button>
+			<button number="2">
+				<oled type="image" name="stop.png"></oled>
+				<keystroke key="ctrl v"></keystroke>
+			</button>
+			<button number="3">
+				<oled type="image" name="switch-monitor.png"></oled>
+				<keystroke key="ctrl s"></keystroke>
+			</button>
+			<button number="4">
+				<oled type="image" name="tux-inverse.png"></oled>
+				<keystroke key="ctrl x"></keystroke>
+			</button>
+			<button number="5">
+				<oled type="image" name="undo-arrow.png"></oled>
+				<keystroke key="shift"></keystroke>
+			</button>
+			<button number="6">
+				<oled type="image" name="up_arrow.png"></oled>
+				<keystroke key="ctrl z"></keystroke>
+			</button>
+			<button number="7">
+				<oled type="image" name="debian.png"></oled>
+				<keystroke key="plus"></keystroke>
+			</button>
+			<!-- 
+				 In "wheel", the values "4", "+4", "5", and "+5" for the
+				 clockwise and counterclockwise attributes have special meaning.
+				 They make the wheel scroll like a mouse scrollwheel.
+				 Alternatively, you can set any other value and that will
+				 be used as a keyboard key or key combination.
+			-->
+			<wheel button="ctrl z" clockwise="+4" counterclockwise="+5"></wheel>
+		</profile>
+		<profile name="GIMP" lefthanded="false">
+			<button number="0">
+				<oled type="text" name="Ctrl + Z"></oled>
+				<keystroke key="ctrl z"></keystroke>
+			</button>
+			<button number="1">
+				<oled type="text" name="Ctrl + Y"></oled>
+				<keystroke key="ctrl y"></keystroke>
+			</button>
+			<button number="2">
+				<oled type="image" name="debian.png"></oled>
+				<keystroke key="plus"></keystroke>
+			</button>
+			<button number="3">
+				<oled type="text" name="-"></oled>
+				<keystroke key="minus"></keystroke>
+			</button>
+			<button number="4">
+				<oled type="text" name="Ctrl + S"></oled>
+				<keystroke key="ctrl s"></keystroke>
+			</button>
+			<button number="5">
+				<oled type="text" name="Alt"></oled>
+				<keystroke key="alt"></keystroke>
+			</button>
+			<button number="6">
+				<oled type="text" name="Ctrl"></oled>
+				<keystroke key="ctrl"></keystroke>
+			</button>
+			<button number="7">
+				<oled type="image" name="arrow-up.png"></oled>
+				<keystroke key="shift"></keystroke>
+			</button>
+			<wheel button="ctrl e"></wheel>
+		</profile>
+	</profiles>
+</intuos4settings>
