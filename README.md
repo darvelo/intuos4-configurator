@@ -15,7 +15,7 @@ This is a quick and dirty implementation, built upon the work of Christoph Karg 
 
 **Note:**
 
-When running the program, you'll need to pass it the path to the `wacom_led` directory within the sysfs `/sys` directory. Setting data on files in this directory for the OLEDs requires sudo privileges.
+When running the program, you can manually pass it the path to the `wacom_led` directory within the sysfs `/sys` directory if it can't find it automatically. Setting data on files in this directory for the OLEDs requires sudo privileges.
 
 All Intuos4 button/OLED user configuration should be done within the `settings.xml` file or another XML config file with the same structure, which you can pass to the program as an argument. You can figure out which device to configure with `xsetwacom list`.
 

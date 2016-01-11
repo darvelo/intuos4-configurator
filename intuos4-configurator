@@ -23,7 +23,7 @@ CONFIG_FILE = os.path.join(
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--sysfs-path', action='store', dest='sysfs_path', required=True,
+    parser.add_argument('-s', '--sysfs-path', action='store', dest='sysfs_path',
             help='Path to the wacom_led dir in /sys. Example: /sys/bus/hid/drivers/wacom/XXXX:XXXX:XXXX.XXXX/wacom_led')
 
     parser.add_argument('-c', '--config', action='store', dest='config_file', default=CONFIG_FILE,
@@ -41,14 +41,26 @@ def parse_args():
     parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.002')
     return parser.parse_args()
 
+def find_sysfs_path():
+    base_dir = '/sys/bus/hid/devices'
+    wacom_hid_id = '056A:00B9'
+    dirs = os.listdir(base_dir)
+
+    for folder in dirs:
+        if folder.find(wacom_hid_id) != -1:
+            return os.path.join(base_dir, folder, 'wacom_led')
+    else:
+        raise Exception('Could not find wacom hid path in {}'.format(base_dir))
 
 def main(args):
-    if args.sysfs_path.find('/sys') != 0 or os.path.basename(args.sysfs_path) != 'wacom_led':
-        raise Exception('sysfs path for wacom_led was invalid: {}'.format(args.sysfs_path))
-    if not os.path.isdir(args.sysfs_path):
-        raise Exception('sysfs path for wacom_led was not a directory: {}'.format(args.sysfs_path))
+    sysfs_path = args.sysfs_path or find_sysfs_path()
 
-    tablet = Tablet(args.sysfs_path)
+    if sysfs_path.find('/sys') != 0 or os.path.basename(sysfs_path) != 'wacom_led':
+        raise Exception('sysfs path for wacom_led was invalid: {}'.format(sysfs_path))
+    if not os.path.isdir(sysfs_path):
+        raise Exception('sysfs path for wacom_led was not a directory: {}'.format(sysfs_path))
+
+    tablet = Tablet(sysfs_path)
 
     if not tablet.initOk():
         print('Initialization failure.')
