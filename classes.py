@@ -318,16 +318,16 @@ class Tablet:
 
     def setProfile(self, profile):
         print('setting profile', profile)
-        self.switchRingLED(0, profile)
-        self.setRingLEDLuminance(10, profile)
-        self.setButtonsLuminance(15, profile)
+        self.switchRingLED(0)
+        self.setRingLEDLuminance(10)
+        self.setButtonsLuminance(15)
+        self.setTapTime(0)
         for i in range(0, 8):
             self.setButtonImage(i, profile)
             self.setButtonKeys(i, profile)
         self.setWheelKeys(profile)
-        self.setTapTime(0, profile)
 
-    def switchRingLED(self, which, profile):
+    def switchRingLED(self, which):
         '''
         set which ring led is selected
         0 is first LED, 3 is 4th
@@ -343,7 +343,7 @@ class Tablet:
         self.printVerbose(command)
         subprocess.call(command)
 
-    def setRingLEDLuminance(self, luminance, profile):
+    def setRingLEDLuminance(self, luminance):
         '''
         set ring led brightness
         3 seems to be minimum, 10 seems to be max
@@ -360,7 +360,7 @@ class Tablet:
         self.printVerbose(command)
         subprocess.call(command)
 
-    def setButtonsLuminance(self, luminance, profile):
+    def setButtonsLuminance(self, luminance):
         '''
         set button led brightness
         0 is darkest (invisible), 15 is brightest for my tablet (intuos4)
@@ -456,7 +456,7 @@ class Tablet:
         self.printVerbose(command)
         subprocess.Popen(command)
 
-    def setTapTime(self, tapTime, profile):
+    def setTapTime(self, tapTime):
         command = [
             'xsetwacom',
             '--set', '{}'.format(self.__device),
